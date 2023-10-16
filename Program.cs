@@ -16,7 +16,6 @@ Movie movie = new Movie
     runningTime = new TimeSpan(2, 21, 23),
     genres = { "Comedy", "Romance" }
 };
-
 Console.WriteLine(movie.Display());
 
 Album album = new Album
@@ -27,7 +26,17 @@ Album album = new Album
     recordLabel = "Universal Music Group",
     genres = { "Rock" }
 };
-
 Console.WriteLine(album.Display());
+
+Book book = new Book
+{
+    mediaId = 111,
+    title = "Super Cool Book",
+    author = "Jeff Grissom",
+    pageCount = 101,
+    publisher = "",
+    genres = { "Suspense", "Mystery" }
+};
+Console.WriteLine(book.Display());
 
 logger.Info("Program ended.");
