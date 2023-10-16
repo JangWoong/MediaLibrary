@@ -7,6 +7,14 @@ string path = Directory.GetCurrentDirectory() + "\\nlog.config";
 var logger = LogManager.Setup().LoadConfigurationFromFile(path).GetCurrentClassLogger();
 logger.Info("Program started");
 
-
+Movie movie = new Movie
+{
+    mediaId = 123,
+    title = "Greatest Movie Ever, The (2023)",
+    director = "Jeff Grissom",
+    // timespan (hours, minutes, seconds)
+    runningTime = new TimeSpan(2, 21, 23),
+    genres = { "Comedy", "Romance" }
+};
 
 logger.Info("Program ended.");
