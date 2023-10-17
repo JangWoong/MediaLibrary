@@ -5,7 +5,7 @@ public class MovieFile
     // public property
     public string filePath { get; set; }
     public List<Movie> Movies { get; set; }
-    private static NLog.Logger logger = LogManager.LoadConfiguration(Directory.GetCurrentDirectory() + "\\nlog.config").GetCurrentClassLogger();
+    private static NLog.Logger logger = LogManager.Setup().LoadConfigurationFromFile(Directory.GetCurrentDirectory() + "\\nlog.config").GetCurrentClassLogger();
 
     // constructor is a special method that is invoked
     // when an instance of a class is created
@@ -34,8 +34,8 @@ public class MovieFile
                     movie.mediaId = UInt64.Parse(movieDetails[0]);
                     movie.title = movieDetails[1];
                     movie.genres = movieDetails[2].Split('|').ToList();
-                    movie.director = movieDetails[3];
-                    movie.runningTime = TimeSpan.Parse(movieDetails[4]);
+                    //movie.director = movieDetails[3];
+                    //movie.runningTime = TimeSpan.Parse(movieDetails[4]);
                 }
                 else
                 {
@@ -55,9 +55,9 @@ public class MovieFile
                     // the first item in the array should be genres 
                     movie.genres = details[0].Split('|').ToList();
                     // if there is another item in the array it should be director
-                    movie.director = details[1];
+                    //movie.director = details[1];
                     // if there is another item in the array it should be run time
-                    movie.runningTime = TimeSpan.Parse(details[2]);
+                    //movie.runningTime = TimeSpan.Parse(details[2]);
                 }
                 Movies.Add(movie);
             }
