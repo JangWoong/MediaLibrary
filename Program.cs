@@ -7,7 +7,7 @@ string path = Directory.GetCurrentDirectory() + "\\nlog.config";
 var logger = LogManager.Setup().LoadConfigurationFromFile(path).GetCurrentClassLogger();
 logger.Info("Program started");
 
-string scrubbedFile = FileScrubber.ScrubMovies("movies.csv");
+string scrubbedFile = Directory.GetCurrentDirectory() + "\\movies.csv";
 logger.Info(scrubbedFile);
 
 string choice = ""; 
@@ -35,20 +35,37 @@ do
                 Movie movie = new Movie();
                 Console.Write("Enter moive title: ");
                 movie.title = Console.ReadLine();
-                string genre = "", inputGenre = "";
-                do
-                {
-                    Console.WriteLine("Enter genre (or done to quit)");
-                    inputGenre = Console.ReadLine();
-                    if(inputGenre != "done")
-                        genre += $"{inputGenre}|";
-                }
-                while(inputGenre == "done");
 
-                movieFile.AddMovie(movie);
+                if(movieFile.isUniqueTitle(movie.title))
+                {
+                    string inputGenre = "";
+                    do
+                    {
+                        Console.WriteLine("Enter genre (or done to quit)");
+                        inputGenre = Console.ReadLine();
+                        if(inputGenre != "done")
+                            movie.genres.Add(inputGenre);
+                    }
+                    while(inputGenre != "done");
+
+                    if(movie.genres.Count == 0)
+                    {
+                        movie.genres.Add("(no genres listed)");
+                    }
+
+                    movieFile.AddMovie(movie);
+                }
+                else
+                {
+                    logger.Info($"{movie.title} is not unique title.");
+                }
             break;
 
             case 2: // Display All Movies
+                foreach(Movie m in movieFile.Movies)
+                {
+                    Console.WriteLine(m.Display());
+                }
             break;
         }
     }

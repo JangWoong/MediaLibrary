@@ -31,11 +31,15 @@ public class MovieFile
                     // no quote = no comma in movie title
                     // movie details are separated with comma(,)
                     string[] movieDetails = line.Split(',');
-                    movie.mediaId = UInt64.Parse(movieDetails[0]);
-                    movie.title = movieDetails[1];
-                    movie.genres = movieDetails[2].Split('|').ToList();
-                    //movie.director = movieDetails[3];
-                    //movie.runningTime = TimeSpan.Parse(movieDetails[4]);
+                    ulong x = 0;
+                    if(ulong.TryParse(movieDetails[0], out x))
+                    {
+                        movie.mediaId = UInt64.Parse(movieDetails[0]);
+                        movie.title = movieDetails[1];
+                        movie.genres = movieDetails[2].Split('|').ToList();
+                        //movie.director = movieDetails[3];
+                        //movie.runningTime = TimeSpan.Parse(movieDetails[4]);
+                    }
                 }
                 else
                 {
