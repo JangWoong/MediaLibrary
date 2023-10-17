@@ -53,11 +53,13 @@ do
                         movie.genres.Add("(no genres listed)");
                     }
 
+                    Console.Write("Enter movie director: ");
+                    movie.director = Console.ReadLine();
+                    Console.Write("Enter running time (h:m:s): ");
+                    string runTime = Console.ReadLine();
+                    movie.runningTime = TimeSpan.Parse(runTime);
+
                     movieFile.AddMovie(movie);
-                }
-                else
-                {
-                    logger.Info($"{movie.title} is not unique title.");
                 }
             break;
 

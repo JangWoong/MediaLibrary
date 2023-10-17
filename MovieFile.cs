@@ -31,15 +31,20 @@ public class MovieFile
                     // no quote = no comma in movie title
                     // movie details are separated with comma(,)
                     string[] movieDetails = line.Split(',');
-                    ulong x = 0;
-                    if(ulong.TryParse(movieDetails[0], out x))
+
+                    if(movieDetails[0] == "movieId")
+                        continue;
+
+                    movie.mediaId = UInt64.Parse(movieDetails[0]);
+                    movie.title = movieDetails[1];
+                    movie.genres = movieDetails[2].Split('|').ToList();
+
+                    if(movieDetails.Length > 3)
                     {
-                        movie.mediaId = UInt64.Parse(movieDetails[0]);
-                        movie.title = movieDetails[1];
-                        movie.genres = movieDetails[2].Split('|').ToList();
-                        //movie.director = movieDetails[3];
-                        //movie.runningTime = TimeSpan.Parse(movieDetails[4]);
+                        movie.director = movieDetails[3];
+                        movie.runningTime = TimeSpan.Parse(movieDetails[4]);
                     }
+
                 }
                 else
                 {
@@ -58,11 +63,16 @@ public class MovieFile
                     string[] details = line.Split(',');
                     // the first item in the array should be genres 
                     movie.genres = details[0].Split('|').ToList();
-                    // if there is another item in the array it should be director
-                    //movie.director = details[1];
-                    // if there is another item in the array it should be run time
-                    //movie.runningTime = TimeSpan.Parse(details[2]);
+
+                    if(details.Length > 2)
+                    {
+                        // if there is another item in the array it should be director
+                        movie.director = details[1];
+                        // if there is another item in the array it should be run time
+                        movie.runningTime = TimeSpan.Parse(details[2]);
+                    }
                 }
+
                 Movies.Add(movie);
             }
             // close file when done
